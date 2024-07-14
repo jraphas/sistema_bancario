@@ -39,9 +39,7 @@ def cria_usuario(usuarios: dict, *, nome: str, data_nascimento: str, cpf: str, l
         }
     )
 
-    print("Usuário adicionado")
-
-    print(usuarios)
+    print(f"Usuário {nome} cadastrado com sucesso.")
 
     return
 
