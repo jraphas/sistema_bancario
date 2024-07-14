@@ -31,7 +31,25 @@ while True:
 
     # Operacao Saque
     elif opcao == "2":
-        print("teste")
+
+        if (numero_saques + 1) > LIMITE_SAQUES:
+            print("Operação não permitida. Número máximo de saques por dia atingido.")
+            continue
+
+        saque = float(input("Digite a quantia para saque em reais: "))
+
+        if saque > limite:
+            print("Operação não permitida. Saque maior que limite diário (R$ 500.00).")
+            continue
+
+        elif (saldo - saque) < 0:
+            print("Operação não permitida. Saldo insuficiente para saque.")
+            continue
+
+        saldo -= saque
+        numero_saques += 1
+
+        print(f"O valor sacado da sua conta foi de R$ {saque:.2f}")
 
     # Operacao Extrato
     elif opcao == "3":
