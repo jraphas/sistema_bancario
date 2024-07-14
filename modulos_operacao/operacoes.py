@@ -5,6 +5,7 @@ Escolha uma das opções do sistema abaixo:
 [1] Depositar
 [2] Sacar
 [3] Extrato
+[4] Cria usuário
 [0] Sair
 
 => """
@@ -16,6 +17,33 @@ extrato = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
 SEPARADOR = 30 * "*"
+usuarios = []
+contas = []
+
+def cria_usuario(usuarios: dict, *, nome: str, data_nascimento: str, cpf: str, logradouro: str, nro: int, bairro: str, cidade: str, uf: str):
+
+    # Checa cpf existente
+    for usuario in usuarios:
+
+        if usuario['cpf'] == cpf:
+            print("CPF já existe. Não é possível cadastrar usuário.")
+            return
+
+    # Cria usuario      
+    usuarios.append(
+        {
+            'nome': nome,
+            'data_nascimento': data_nascimento,
+            'cpf': cpf,
+            'endereco': f"{logradouro.capitalize()}, {nro} - {bairro.capitalize()} - {cidade.capitalize()}/{uf.upper()}"
+        }
+    )
+
+    print("Usuário adicionado")
+
+    print(usuarios)
+
+    return
 
 # Operacao de saque
 def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
@@ -85,6 +113,20 @@ while True:
     elif opcao == "3":
 
         visualiza_extrato(saldo, extrato=extrato)
+
+    elif opcao == "4":
+
+        print("Informe os dados do usuário a ser criado:")
+        nome = input("Nome: ")
+        data_nascimento = input("Data de Nascimento em dd/mm/yyyy: ")
+        cpf = input("CPF: ")
+        logradouro = input("Logradouro: ")
+        nro = input("Número Residência: ")
+        bairro = input("Bairro: ")
+        cidade = input("Cidade: ")
+        uf = input("UF: ")
+
+        cria_usuario(usuarios, nome=nome, data_nascimento=data_nascimento, cpf=cpf, logradouro=logradouro, nro=nro, bairro=bairro, cidade=cidade, uf=uf)
 
     # Saida do sistema
     elif opcao == "0":
