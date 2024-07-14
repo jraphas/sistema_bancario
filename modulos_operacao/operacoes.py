@@ -15,6 +15,7 @@ limite = 500
 extrato = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
+SEPARADOR = 30 * "*"
 
 # Navegando pelo menu das operacoes
 while True:
@@ -28,6 +29,7 @@ while True:
         saldo += deposito
 
         print(f"O valor depositado na sua conta foi de R$ {deposito:.2f}")
+        extrato += f"\nDeposito: R$ {deposito:.2f}"
 
     # Operacao Saque
     elif opcao == "2":
@@ -50,10 +52,19 @@ while True:
         numero_saques += 1
 
         print(f"O valor sacado da sua conta foi de R$ {saque:.2f}")
+        extrato += f"\nSaque: R$ {saque:.2f}"
 
     # Operacao Extrato
     elif opcao == "3":
-        print("teste")
+
+        print(SEPARADOR + " Extrato " + SEPARADOR)
+
+        if extrato == "":
+            print("Não foram realizadas movimentações.")
+            continue
+
+        saldo_total = f"\nSaldo Total: R$ {saldo:.2f}"
+        print(extrato, saldo_total)
 
     # Saida do sistema
     elif opcao == "0":
