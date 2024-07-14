@@ -40,6 +40,16 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
 
     return saldo, extrato, numero_saques
 
+# Operacao de deposito
+def depositar(saldo, valor, extrato):
+
+    saldo += valor
+
+    print(f"O valor depositado na sua conta foi de R$ {valor:.2f}")
+    extrato += f"\nDeposito: R$ {valor:.2f}"
+
+    return saldo, extrato
+
 # Navegando pelo menu das operacoes
 while True:
 
@@ -47,18 +57,15 @@ while True:
     
     # Operacao Deposito
     if opcao == "1":
-        
-        deposito = float(input("Digite a quantia para depósito em reais: "))
-        saldo += deposito
 
-        print(f"O valor depositado na sua conta foi de R$ {deposito:.2f}")
-        extrato += f"\nDeposito: R$ {deposito:.2f}"
+        deposito = float(input("Digite a quantia para depósito em reais: "))
+        saldo, extrato = depositar(saldo, deposito, extrato)
 
     # Operacao Saque
     elif opcao == "2":
 
         saque = float(input("Digite a quantia para saque em reais: "))
-        saldo, extrato, numero_saques = sacar(saldo=saldo, valor=saque, extrato=extrato, limite=limite, numero_saques=numero_saques, limite_saques=LIMITE_SAQUES )
+        saldo, extrato, numero_saques = sacar(saldo=saldo, valor=saque, extrato=extrato, limite=limite, numero_saques=numero_saques, limite_saques=LIMITE_SAQUES)
 
     # Operacao Extrato
     elif opcao == "3":
@@ -79,10 +86,7 @@ while True:
     else:
         print("Operação inválida, por favor selecione novamente a operação desejada.")
 
-# Operacao de deposito
-def depositar():
 
-    return
 
 # Operacao de extrato
 def visualiza_extrato():
