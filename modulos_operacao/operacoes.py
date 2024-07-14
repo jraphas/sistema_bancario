@@ -6,6 +6,7 @@ Escolha uma das opções do sistema abaixo:
 [2] Sacar
 [3] Extrato
 [4] Cria usuário
+[5] Cria conta
 [0] Sair
 
 => """
@@ -19,8 +20,10 @@ LIMITE_SAQUES = 3
 SEPARADOR = 30 * "*"
 usuarios = []
 contas = []
+AGENCIA = "0001"
+numero_conta = 1
 
-def cria_usuario(usuarios: dict, *, nome: str, data_nascimento: str, cpf: str, logradouro: str, nro: int, bairro: str, cidade: str, uf: str):
+def cria_usuario(usuarios, *, nome: str, data_nascimento: str, cpf: str, logradouro: str, nro: int, bairro: str, cidade: str, uf: str):
 
     # Checa cpf existente
     for usuario in usuarios:
@@ -42,6 +45,33 @@ def cria_usuario(usuarios: dict, *, nome: str, data_nascimento: str, cpf: str, l
     print(f"Usuário {nome} cadastrado com sucesso.")
 
     return
+
+def cria_conta(contas, usuarios, cpf:str, agencia: str, numero_conta: int):
+    
+    usuario_encontrado = False
+
+    for usuario in usuarios:
+        if usuario['cpf'] == cpf:
+            contas.append(
+                {
+                    'usuario': usuario,
+                    'agencia': agencia,
+                    'numero_conta': numero_conta
+                }
+            )
+            
+            numero_conta += 1
+
+            print("Conta criada com sucesso.")
+
+            usuario_encontrado = True
+
+    if(not usuario_encontrado):
+        print("Não foi encontrado usuário com o CPF informado.")
+
+    print(contas)
+
+    return numero_conta
 
 # Operacao de saque
 def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
@@ -111,7 +141,8 @@ while True:
     elif opcao == "3":
 
         visualiza_extrato(saldo, extrato=extrato)
-
+    
+    # Cria usuario
     elif opcao == "4":
 
         print("Informe os dados do usuário a ser criado:")
@@ -125,6 +156,13 @@ while True:
         uf = input("UF: ")
 
         cria_usuario(usuarios, nome=nome, data_nascimento=data_nascimento, cpf=cpf, logradouro=logradouro, nro=nro, bairro=bairro, cidade=cidade, uf=uf)
+
+    # Cria conta
+    elif opcao == "5":
+
+        print("Informe o CPF do usuário a ser vinculado à nova conta:")
+        cpf_conta = input("CPF: ")
+        numero_conta = cria_conta(contas, usuarios, cpf_conta, AGENCIA, numero_conta)
 
     # Saida do sistema
     elif opcao == "0":
