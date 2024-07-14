@@ -17,6 +17,29 @@ numero_saques = 0
 LIMITE_SAQUES = 3
 SEPARADOR = 30 * "*"
 
+# Operacao de saque
+def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
+
+    if (numero_saques + 1) > limite_saques:
+        print("Operação não permitida. Número máximo de saques por dia atingido.")
+        return saldo, extrato, numero_saques
+
+    elif valor > limite:
+        print("Operação não permitida. Saque maior que limite diário (R$ 500.00).")
+        return saldo, extrato, numero_saques
+
+    elif (saldo - valor) < 0:
+        print("Operação não permitida. Saldo insuficiente para saque.")
+        return saldo, extrato, numero_saques
+
+    saldo -= valor
+    numero_saques += 1
+
+    print(f"O valor sacado da sua conta foi de R$ {valor:.2f}")
+    extrato += f"\nSaque: R$ {valor:.2f}"
+
+    return saldo, extrato, numero_saques
+
 # Navegando pelo menu das operacoes
 while True:
 
@@ -34,25 +57,8 @@ while True:
     # Operacao Saque
     elif opcao == "2":
 
-        if (numero_saques + 1) > LIMITE_SAQUES:
-            print("Operação não permitida. Número máximo de saques por dia atingido.")
-            continue
-
         saque = float(input("Digite a quantia para saque em reais: "))
-
-        if saque > limite:
-            print("Operação não permitida. Saque maior que limite diário (R$ 500.00).")
-            continue
-
-        elif (saldo - saque) < 0:
-            print("Operação não permitida. Saldo insuficiente para saque.")
-            continue
-
-        saldo -= saque
-        numero_saques += 1
-
-        print(f"O valor sacado da sua conta foi de R$ {saque:.2f}")
-        extrato += f"\nSaque: R$ {saque:.2f}"
+        saldo, extrato, numero_saques = sacar(saldo=saldo, valor=saque, extrato=extrato, limite=limite, numero_saques=numero_saques, limite_saques=LIMITE_SAQUES )
 
     # Operacao Extrato
     elif opcao == "3":
@@ -72,3 +78,13 @@ while True:
 
     else:
         print("Operação inválida, por favor selecione novamente a operação desejada.")
+
+# Operacao de deposito
+def depositar():
+
+    return
+
+# Operacao de extrato
+def visualiza_extrato():
+
+    return
