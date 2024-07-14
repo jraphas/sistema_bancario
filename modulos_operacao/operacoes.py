@@ -50,6 +50,20 @@ def depositar(saldo, valor, extrato):
 
     return saldo, extrato
 
+# Operacao de extrato
+def visualiza_extrato(saldo, *, extrato):
+
+    print(SEPARADOR + " Extrato " + SEPARADOR)
+
+    if extrato == "":
+        print("Não foram realizadas movimentações.")
+        return
+
+    saldo_total = f"\nSaldo Total: R$ {saldo:.2f}"
+    print(extrato, saldo_total)
+
+    return
+
 # Navegando pelo menu das operacoes
 while True:
 
@@ -70,14 +84,7 @@ while True:
     # Operacao Extrato
     elif opcao == "3":
 
-        print(SEPARADOR + " Extrato " + SEPARADOR)
-
-        if extrato == "":
-            print("Não foram realizadas movimentações.")
-            continue
-
-        saldo_total = f"\nSaldo Total: R$ {saldo:.2f}"
-        print(extrato, saldo_total)
+        visualiza_extrato(saldo, extrato=extrato)
 
     # Saida do sistema
     elif opcao == "0":
@@ -85,10 +92,3 @@ while True:
 
     else:
         print("Operação inválida, por favor selecione novamente a operação desejada.")
-
-
-
-# Operacao de extrato
-def visualiza_extrato():
-
-    return
