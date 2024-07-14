@@ -97,7 +97,7 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
     return saldo, extrato, numero_saques
 
 # Operacao de deposito
-def depositar(saldo, valor, extrato):
+def depositar(saldo, valor, extrato, /):
 
     saldo += valor
 
@@ -107,7 +107,7 @@ def depositar(saldo, valor, extrato):
     return saldo, extrato
 
 # Operacao de extrato
-def visualiza_extrato(saldo, *, extrato):
+def visualiza_extrato(saldo, /, *, extrato):
 
     print(SEPARADOR + " Extrato " + SEPARADOR)
 
