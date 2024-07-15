@@ -69,8 +69,6 @@ def cria_conta(contas, usuarios, cpf:str, agencia: str, numero_conta: int):
     if(not usuario_encontrado):
         print("Não foi encontrado usuário com o CPF informado.")
 
-    print(contas)
-
     return numero_conta
 
 # Operacao de saque
